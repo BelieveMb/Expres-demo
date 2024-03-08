@@ -14,7 +14,6 @@ function findArticleIndex(id) {
   return data.findIndex((article) => article.id === +id);
 }
 function paginateArticle(pageStart, pageEnd) {
-  // return data.slice((page - 1) * 5, page * 5);
   return data.slice(pageStart, pageEnd);
 }
 function showPageArticle(page){
