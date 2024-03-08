@@ -13,20 +13,26 @@ function findArticleById(id) {
 function findArticleIndex(id) {
   return data.findIndex((article) => article.id === +id);
 }
-function paginateArticle(pageStart, pageEnd) {
-  return data.slice(pageStart, pageEnd);
+// function paginateArticle(pageStart, pageEnd) {
+  function paginateArticle(page) {
+  return data.slice((page - 1) * 10, page * 10);
+  // return data.slice(pageStart, pageEnd);
 }
 function showPageArticle(page){
   if(page === 1){
-    return paginateArticle(0,10);
+    // return paginateArticle(0,10);
+    return paginateArticle(1);
     
   }else if (page === 2) {
-    return paginateArticle(10,20);
+    // return paginateArticle(10,20);
+    return paginateArticle(2);
   } else if (page === 3) {
-    return paginateArticle(20,30);
+    // return paginateArticle(20,30);
+    return paginateArticle(3);
   } 
   else {
-    return paginateArticle(40,50); 
+    // return paginateArticle(40,50); 
+    return paginateArticle(5); 
   }
   
 }
