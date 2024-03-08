@@ -13,15 +13,40 @@ function findArticleById(id) {
 function findArticleIndex(id) {
   return data.findIndex((article) => article.id === +id);
 }
+function paginateArticle(pageStart, pageEnd) {
+  // return data.slice((page - 1) * 5, page * 5);
+  return data.slice(pageStart, pageEnd);
+}
+function showPageArticle(page){
+  if(page === 1){
+    return paginateArticle(0,10);
+    
+  }else if (page === 2) {
+    return paginateArticle(10,20);
+  } else if (page === 3) {
+    return paginateArticle(20,30);
+  } 
+  else {
+    return paginateArticle(40,50); 
+  }
+  
+}
+
 
 app.get("/", (req, res) => {
   console.log("L'application fonctionne");
   res.send("L'application fonctionne");
 });
-
 app.get("/articles", (req, res) => {
   res.send(data);
 });
+
+/*------------------la pagination par 10 ------------------*/
+app.get("/articles-page=:id", (req, res) => {
+  const { id } = req.params;
+  res.send(showPageArticle(+id));
+});
+
 
 app.get("/articles/:id", (req, res) => {
   const { id } = req.params;
@@ -66,6 +91,21 @@ app.delete("/articles/:id", (req, res) => {
   }
 });
 
+/*------------------supprimer un groupe de données------------------*/
+app.delete("/articles/delete/:id", (req, res) => {
+  const { id } = req.params; 
+  for (let i = 0; i < id; i++) {
+
+    data.shift(id); 
+    res.status(200).send(`Les ${id} premiers articles ont été supprimé  `);  
+
+  }
+
+});
+
+
 app.listen(PORT, () => {
   console.log(`Le serveur écoute sur le port ${PORT}`);
 });
+
+
